@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="mn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бүртгэл хуудас</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/3364/3364355.png" type="image/svg+xml">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap">
+    <style>
+        body {
+            display: flex;
+            flex-direction: row-reverse;
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            background: linear-gradient(to bottom, #ffffff, #ffc0cb);
+            background-size: cover;
+            color: #fff;
+            justify-content: space-between;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            padding: 5vw;
+            text-align: center;
+            margin-left: 2vw;
+        }
+
+        header h1 {
+            font-family: 'Brush Script MT', cursive;
+            font-size: min(8vw, 36px);
+            color: #ff1493;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            color: inherit;
+        }
+
+        .welcome-text {
+            font-family: 'Brush Script MT', cursive;
+            text-align: center;
+            color: #ff1493;
+            font-size: min(10vw, 64px);
+            margin-top: 5vh;
+            opacity: 0.9;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .signup-container {
+            flex: 1;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background-color: rgba(255, 192, 203, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label, select {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 20px;
+        }
+
+        .gender-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            justify-content: space-between;
+        }
+
+        .gender-options input,
+        .gender-options label {
+            flex: 1;
+            margin: 0;
+        }
+
+        .email-container {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .email-input, #email-domain, #nationality {
+            height: 40px;
+            margin: 0;
+            border-radius: 5px;
+        }
+
+        .email-input {
+            flex: 1;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid #ccc;
+            height: 20px;
+        }
+
+        #email-domain {
+            border-radius: 0 5px 5px 0;
+        }
+
+        span {
+            margin: 0 5px;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #ff1493;
+        }
+
+        .additional-links {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .additional-links a {
+            color: #ff1493;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .additional-links a:hover {
+            color: #fff;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            header {
+                position: static;
+                padding: 10px;
+                margin-bottom: 1vh;
+                background-color: rgba(255, 255, 255, 0.9);
+            }
+
+            header h1 {
+                font-size: 20px;
+                color: #ff1493;
+            }
+
+            .welcome-text {
+                font-size: 24px;
+            }
+
+            .signup-container {
+                margin-top: 10px;
+                max-width: 100%;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            img {
+                max-width: 80px;
+            }
+
+            .signup-container {
+                margin-top: 10px;
+                max-width: 100%;
+                width: 90%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="index.html">
+            <h1><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png" alt="лого">Бүртгэл хуудас</h1>
+        </a>
+        <div class="welcome-text">WELCOME</div>
+    </header>
+
+    <div class="signup-container">
+        <form id="signup-form">
+            <label for="name">Нэр:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="gender">Хүйс:</label>
+            <div class="gender-container">
+                <div class="gender-options">
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">Эрэгтэй</label>
+                </div>
+                <div class="gender-options">
+                    <input type="radio" id="female" name="gender" value="female" required>
+                    <label for="female">Эмэгтэй</label>
+                </div>
+                <div class="gender-options">
+                    <input type="radio" id="other" name="gender" value="other" required>
+                    <label for="other">Сонголт хийхгүй</label>
+                </div>
+            </div>
+
+            <label for="nationality">Улс:</label>
+            <select id="nationality" name="nationality" required>
+                <option value="mongolia">Монгол</option>
+                <option value="korea">Солонгос</option>
+                <option value="usa">АНУ</option>
+                <option value="china">Хятад</option>
+                <option value="japan">Япон</option>
+                <option value="australia">Австрали</option>
+                <option value="russia">Орос</option>
+            </select>
+
+            <label for="email">Имэйл:</label>
+            <div class="email-container">
+                <input type="text" id="email" name="email" class="email-input" required>
+                <span>@</span>
+                <select id="email-domain" name="email-domain" required>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="yahoo.com">yahoo.com</option>
+                    <option value="naver.com">naver.com</option>
+                </select>
+            </div>
+
+            <label for="phone">Утасны дугаар:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="username">Хэрэглэгчийн нэр:</label>
+            <input type="text" id="username" name="username" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$" required
+                title="5 тэмдэгтээс олон урттай, үсэг болон тоо агуулсан хэрэглэгчийн нэр шаардлагатай.">
+
+            <label for="password">Нууц үг:</label>
+            <input type="password" id="password" name="password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                required title="8 тэмдэгтээс олон урттай, үсэг болон тоо агуулсан нууц үг шаардлагатай.">
+
+            <button type="submit">Бүртгүүлэх</button>
+        </form>
+
+        <div class="additional-links">
+            <a href="#" id="forgot-password">Нууц үг мартсан</a>
+            <span>|</span>
+            <a href="#" id="login">Нэвтрэх</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var nameInput = document.getElementById("name");
+
+            nameInput.addEventListener("keydown", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    moveToNextForm();
+                }
+            });
+
+            function moveToNextForm() {
+                var currentForm = document.getElementById("signup-form");
+                var formElements = currentForm.elements;
+                var nextFormElement = null;
+                for (var i = 0; i < formElements.length; i++) {
+                    if (formElements[i] === nameInput) {
+                        nextFormElement = formElements[i + 1];
+                        break;
+                    }
+                }
+                if (nextFormElement) {
+                    nextFormElement.focus();
+                }
+            }
+        });
+    </script>
+    
+</body>
+
+</html>

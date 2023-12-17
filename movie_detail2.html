@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кино танилцуулга вэбсайт - Кино нэр 2</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/3364/3364355.png" type="image/svg+xml">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Brush+Script+MT&display=swap">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: transparent;
+            padding: 20px; /* Хэдэртэй зай нэмэх */
+            border: none;
+            z-index: 1000;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+
+        header a {
+            color: #ff4081;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        header h1 {
+            font-family: 'Brush Script MT', cursive;
+            color: #ff4081;
+            margin: 0;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        header img {
+            margin-right: 10px;
+            height: 24px;
+            border: 2px solid #ff4081;
+            border-radius: 5px;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff4081;
+        }
+
+        .menu-icon img {
+            height: 24px;
+            width: auto;
+            margin-left: -5px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            background-color: transparent;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        nav a {
+            color: #ff4081;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff4081;
+        }
+
+        @media screen and (max-width: 768px) {
+            nav {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background-color: rgba(255, 255, 255, 0.5); /* Тугийн дүгээр үеийн өнгө шинэчлэх */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            nav.show {
+                display: flex;
+            }
+
+            nav a {
+                margin: 10px 0;
+            }
+
+            header h1 {
+                justify-content: flex-start;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .menu-icon img {
+                height: 24px;
+                width: auto;
+                margin-left: -50px;
+            }
+        }
+
+        .movie-title-section {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-top: 80px; /* Хэдэртэй зай нэмэх */
+        }
+
+        .movie-title-section h2 {
+            color: #333;
+            font-size: 24px;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .movie-detail {
+            max-width: 100%;
+            margin: 20px auto; /* Кино дэлгэрэнгүй мэдээлэлтэй зай нэмэх */
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: auto;
+            position: relative;
+            text-align: center;
+            color: #000;
+        }
+
+        .movie-detail img {
+            width: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: pointer; /* Зургаас сонгосон үед курсор нэмэх */
+            transition: transform 0.3s ease-in-out; /* Харгалзах/багасгах транзишн эффект нэмэх */
+        }
+
+        .movie-detail p {
+            color: #000;
+            line-height: 1.6;
+        }
+
+        /* Засварласан трейлер секц */
+        #trailer-section {
+            background-color: #ff4081;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #trailer-section h3 {
+            color: #fff;
+            font-size: 24px;
+            margin-bottom: 5px; /* Секцын гарчигын доос хоорондын зай нэмэх */
+        }
+
+        #trailer {
+            max-width: 100%;
+            margin: 0 auto; /* Төвд зурахын тулд margin нэмэх */
+            background-color: #ff4081;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            height: auto;
+        }
+
+        #trailer iframe {
+            width: 100%;
+            height: 100%; /* 100% руу засах */
+        }
+
+        /* Нэмэгдсэн стил секц */
+        #stills-section {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 5px; /* Секцын гарчигаас зай нэмэх */
+        }
+
+        #stills-section h3 {
+            color: #ff4081;
+            font-size: 24px;
+            margin-bottom: 5px; /* Секцын гарчигын доос хоорондын зай нэмэх */
+        }
+
+        #stills {
+            max-width: 100%;
+            display: flex;
+            flex-wrap: wrap; /* Зургуудыг дэлгэцэнд зайлуулахын тулд flex-wrap нэмэх */
+            gap: 10px; /* Зургуудын хоорондын зай нэмэх */
+        }
+
+        .still-img-container {
+            width: calc(25% - 10px); /* Хэрэглэж буй дэлгэцэнд зайг харгалзахын тулд нэмэх */
+            margin-bottom: 10px; /* Зургуудын хоорондын зай нэмэх */
+        }
+
+        #stills img {
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: auto;
+            cursor: pointer; /* Зургаас сонгосон үед курсор нэмэх */
+            transition: transform 0.3s ease-in-out; /* Харгалзах/багасгах транзишн эффект нэмэх */
+        }
+
+        /* Модал стил */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1001; /* Модал нь хэдэрээс дээш байхыг зайлуулах */
+        }
+
+        .modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            margin: auto;
+            position: relative;
+        }
+
+        .modal img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* Нэмэгдсэн стил */
+        .movie-detail img:hover,
+        #stills img:hover {
+            transform: scale(1.1); /* Харгалзах тэндээс багасгах эффект */
+        }
+
+        /* Нэмэгдсэн стил */
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1><img src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png" alt="лого">Кино танилцуулга вэбсайт</h1>
+        <div class="menu-icon"><img src="https://cdn-icons-png.flaticon.com/128/8166/8166618.png" alt="цэс икон"></div>
+        <nav>
+            <a href="#main-info">Үндсэн мэдээлэл</a>
+            <a href="#trailer-section">Трейлер</a>
+            <a href="#stills-section">Сценар</a>
+            <a href="login.html">Нэвтрэх</a>
+            <a href="signup.html">Бүртгүүлэх</a>
+        </nav>
+    </header>
+
+    <!-- Нэмэгдсэн кино нэр секц -->
+    <div id="main-info" class="movie-title-section">
+        <h2>Doona дэлгэрэнгүй мэдээлэл</h2>
+    </div>
+
+    <div class="movie-detail">
+        <img src="https://upload.wikimedia.org/wikipedia/en/2/29/Doona%21.jpg"
+            alt="Кино постер 1" id="poster-img">
+        <p>“Dream Sweet” охидын хамтлагийн гишүүн Дү На нэг өдөр хамтлагаасаа гарч байгаагаа зарлана. Одоо тэр их сургуулийн ойролцоо байх нийтийн байранд амьдардаг ба байрнаасаа тоотой хэдхэн удаа гарах болжээ. Тэрхүү нийтийн байранд онцгой зүйлгүй ч халуун дулаан сэтгэлтэй Вон Жүн гэх нэгэн залуу нүүж ирснээр тэдний хооронд нандин холбоос үүснэ. </p>
+    </div>
+
+    <!-- Засварлагдсан трейлер секц -->
+    <div id="trailer-section" style="background-color: #ff4081; padding: 20px; text-align: center;">
+        <h3 style="color: #fff; font-size: 24px; margin-bottom: 5px;">Трейлер</h3>
+        <div id="trailer" style="max-width: 100%; margin: 0 auto;">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/v4rtx48siJI" frameborder="0"
+                allowfullscreen style="max-width: 100%; max-height: 100%;"></iframe>
+        </div>
+    </div>
+
+    <!-- Засварлагдсан сценар секц -->
+    <div id="stills-section">
+        <h3>Сценар</h3>
+        <div id="stills">
+            <div class="still-img-container" onclick="openModal('https://img.kpopmap.com/780x0/2023/10/Doona-Silvertrhee.jpg')">
+                <img src="https://img.kpopmap.com/780x0/2023/10/Doona-Silvertrhee.jpg"
+                    alt="Сценар 1">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://assets.pikiran-rakyat.com/crop/0x0:0x0/750x500/photo/2023/11/18/3877497518.jpeg')">
+                <img src="https://assets.pikiran-rakyat.com/crop/0x0:0x0/750x500/photo/2023/11/18/3877497518.jpeg"
+                    alt="Сценар 2">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://www.pinkvilla.com/pics/480x480/844604092_332284092_1493085711220441_3017680751746971284_n_1280*720_202302.jpg')">
+                <img src="https://www.pinkvilla.com/pics/480x480/844604092_332284092_1493085711220441_3017680751746971284_n_1280*720_202302.jpg"
+                    alt="Сценар 3">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://memorandum.disway.id/upload/806ea5e6ba99a6fc38682633c600dcd4.jpg')">
+                <img src="https://memorandum.disway.id/upload/806ea5e6ba99a6fc38682633c600dcd4.jpg"
+                    alt="Сценар 4">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://filmfare.wwmindia.com/content/2023/oct/doonabaesuzyyangse-jong271697711413.jpg')">
+                <img src="https://filmfare.wwmindia.com/content/2023/oct/doonabaesuzyyangse-jong271697711413.jpg"
+                    alt="Сценар 5">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqb_e75vtL_3T1kGPLL3fb9OnLTvSLpCuztQ&usqp=CAU')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqb_e75vtL_3T1kGPLL3fb9OnLTvSLpCuztQ&usqp=CAU"
+                    alt="Сценар 6">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://averagebeing.com/wp-content/uploads/2023/11/Doona-Ending-Explained-Do-Doona-and-Won-Jun-End-Up-Together.jpg')">
+                <img src="https://averagebeing.com/wp-content/uploads/2023/11/Doona-Ending-Explained-Do-Doona-and-Won-Jun-End-Up-Together.jpg"
+                    alt="Сценар 7">
+            </div>
+            <div class="still-img-container" onclick="openModal('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo_SdtzL3IQKDXml78RS76zu8VI0Q7a3fRfg&usqp=CAU')">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo_SdtzL3IQKDXml78RS76zu8VI0Q7a3fRfg&usqp=CAU"
+                    alt="Сценар 8">
+            </div>
+            <!-- Шаардлагатай бол нэмэгдүүлэх зургуудаа оруулна уу -->
+        </div>
+    </div>
+
+    <!-- Модал цонх -->
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modal-img">
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.menu-icon').addEventListener('click', function () {
+            document.querySelector('nav').classList.toggle('show');
+        });
+
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            const scrollY = window.scrollY;
+
+            if (scrollY > 0) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Модал цонх нээх
+        function openModal(imgSrc) {
+            document.getElementById('modal-img').src = imgSrc;
+            document.getElementById('myModal').style.display = 'flex';
+        }
+
+        // Модал цонх хаах
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>

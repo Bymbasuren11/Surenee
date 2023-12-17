@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Introduction Site</title>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/3364/3364355.png" type="image/svg+xml">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            overflow: hidden;
+            background-color: #f2f2f2;
+        }
+
+        #main-container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .movie {
+            text-align: center;
+            flex: 0 0 100vw;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        .movie-title {
+            font-size: 5vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            width: 80%;
+        }
+
+        .more-button {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            text-align: center;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.7); 
+            border: 2px solid #fff;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            border-radius: 10px;
+            text-decoration: none; 
+        }
+
+        .more-button:hover {
+            background-color: #fff;
+            color: #333;
+        }
+
+        .arrow-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px solid #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .arrow-button:hover {
+            background-color: #fff;
+            border-color: #000;
+        }
+
+        .arrow-button img {
+            width: 80%;
+            height: auto;
+            fill: #fff;
+        }
+
+        #prev-button {
+            left: 20px;
+        }
+
+        #next-button {
+            right: 20px;
+        }
+
+        .arrow-button-next img {
+            transform: scaleX(1); 
+        }
+
+        .arrow-button-prev img {
+            transform: scaleX(-1);
+        }
+
+        .audio-player {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .audio-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .audio-button:hover {
+            background: none;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="main-container">
+        <div class="movie-container">
+            <div class="movie" id="movie1">
+                <img src="https://1.vikiplatform.com/c/40131c/fb831a344d.jpg?x=b"
+                    alt="Movie Poster 1">
+                <div class="movie-title">Twinkling watermelon</div>
+                <a class="more-button" href="movie_detail1.html">Read More</a>
+                <div class="audio-player">
+                    <button class="audio-button" onclick="toggleAudio()">
+                        <img src="https://cdn-icons-png.flaticon.com/128/715/715273.png" alt="Play/Pause" style="width: 20px; height: 20px;">
+                    </button>
+                    <button class="audio-button" onclick="toggleMute()">
+                        <img src="https://cdn-icons-png.flaticon.com/128/11614/11614598.png" alt="Mute" style="width: 20px; height: 20px;">
+                    </button>
+                </div>
+            </div>
+            <div class="movie" id="movie2">
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/29/Doona%21.jpg"
+                    alt="Movie Poster 2">
+                <div class="movie-title">Doona</div>
+                <a class="more-button" href="movie_detail2.html">Read More</a>
+                <div class="audio-player">
+                    <button class="audio-button" onclick="toggleAudio()">
+                        <img src="https://cdn-icons-png.flaticon.com/128/715/715273.png" alt="Play/Pause" style="width: 20px; height: 20px;">
+                    </button>
+                    <button class="audio-button" onclick="toggleMute()">
+                        <img src="https://cdn-icons-png.flaticon.com/128/11614/11614598.png" alt="Mute" style="width: 20px; height: 20px;">
+                    </button>
+                </div>
+            </div>
+            <!-- Add additional movie information as needed. -->
+        </div>
+        <div class="arrow-button arrow-button-prev" id="prev-button" onclick="showPrevMovie()">
+            <img src="https://cdn-icons-png.flaticon.com/128/271/271228.png" alt="Previous">
+        </div>
+        <div class="arrow-button arrow-button-next" id="next-button" onclick="showNextMovie()">
+            <img src="https://cdn-icons-png.flaticon.com/128/271/271228.png" alt="Next">
+        </div>
+    </div>
+
+    <script>
+        const totalMovies = 2; //Count your movie
+        let currentMovieIndex = 1;
+        let audio = new Audio("Roie Shpigler - Aluminum.mp3");
+        audio.loop = true;
+
+        function showNextMovie() {
+            if (currentMovieIndex < totalMovies) {
+                currentMovieIndex++;
+            } else {
+                currentMovieIndex = 1;
+            }
+            updateMoviePosition();
+        }
+
+        function showPrevMovie() {
+            if (currentMovieIndex > 1) {
+                currentMovieIndex--;
+            } else {
+                currentMovieIndex = totalMovies;
+            }
+            updateMoviePosition();
+        }
+
+        function updateMoviePosition() {
+            const movieContainer = document.querySelector('.movie-container');
+            const movieWidth = document.querySelector('.movie').offsetWidth;
+            const translateXValue = `-${(currentMovieIndex - 1) * movieWidth}px`;
+
+            movieContainer.style.transform = `translateX(${translateXValue})`;
+        }
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+
+        function toggleMute() {
+            audio.muted = !audio.muted;
+        }
+
+    </script>
+</body>
+
+</html>
